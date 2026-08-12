@@ -2,7 +2,7 @@
   "name": "dotnet-pulse",
   "displayName": ".NET Pulse",
   "description": "Enhanced .NET development workflow with smart project building, code-behind navigation, git tools, and external terminal integration",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "icon": "icon.png",
   "publisher": "dvoituron",
   "repository": {

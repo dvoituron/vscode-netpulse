@@ -269,3 +269,6 @@ This extension is provided as-is for productivity enhancement in .NET developmen
 ### 1.0.10
 - Added `dotnetPulse.startConfiguration` setting to override individual fields of the Run/Debug launch configuration (`type`, `request`, `program`, `args`, `cwd`, `stopAtEntry`, `requireExactSource`, `noDebug`).
 
+### 1.0.11
+- Changed bundled extension dependencies to optional recommendations via `extensionPack`.
+
