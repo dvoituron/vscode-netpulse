@@ -227,12 +227,13 @@ Example — launch a Blazor WebAssembly project with the `blazorwasm` debug adap
 
 > **Note:** Values set in `dotnetPulse.startConfiguration` take precedence over `dotnetPulse.projectArgs`. For example, if both `projectArgs` and `startConfiguration.args` are set, only `startConfiguration.args` is used (no merging).
 
-## Extension Dependencies
+## Recommended Extensions
 
-This extension works seamlessly with:
+The extension pack recommends the following optional extensions:
 - C# Dev Kit (`ms-dotnettools.csdevkit`)
 - Visual Studio Keybindings (`ms-vscode.vs-keybindings`)
 - VSCode Icons (`vscode-icons-team.vscode-icons`)
+- Error Lens (`usernamehw.errorlens`)
 
 ## Requirements
 

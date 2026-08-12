@@ -15,12 +15,10 @@
   "categories": [
     "Other"
   ],
-  "extensionDependencies": [
+  "extensionPack": [
     "ms-vscode.vs-keybindings",
     "vscode-icons-team.vscode-icons",
-    "ms-dotnettools.csdevkit"
-  ],
-  "extensionPack": [
+    "ms-dotnettools.csdevkit",
     "usernamehw.errorlens"
   ],
   "activationEvents": [
