@@ -1,0 +1,21 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	"version": "0.2.0",
+	"configurations": [
+		{
+			// Configuration name shown in the debug dropdown
+			"name": "Run Extension",
+			"type": "extensionHost",
+			"request": "launch",
+			// The ${workspaceFolder} variable refers to your extension's root folder
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}"
+			],
+			// Directory where the compiled JavaScript files are located
+			"outFiles": [
+				"${workspaceFolder}/out/**/*.js"
+			],
+}
+	]
+}
