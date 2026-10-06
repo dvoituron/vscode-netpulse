@@ -26,7 +26,12 @@ async function executeDebug(filePath: string, channel: vscode.OutputChannel, pro
     channel.appendLine(`${NET_PULSE}${projectInfoMessage}`);
 
     if (DotnetPulseSettings.buildBeforeRun()) {
-        const buildSuccess = await executeBuild(filePath, channel, projectInfoMessage);
+        const buildSuccess = await executeBuild(
+            filePath,
+            channel,
+            projectInfoMessage,
+            DotnetPulseSettings.runBuildArgs()
+        );
 
         if (!buildSuccess) {
             channel.appendLine(`${NET_PULSE}Debug cancelled due to build failure.`);
@@ -54,7 +59,7 @@ async function executeDebug(filePath: string, channel: vscode.OutputChannel, pro
         request: 'launch',
         preLaunchTask: DotnetPulseSettings.projectPreLaunchTask(),
         program: dllPath,
-        args: DotnetPulseSettings.projectArgs(),
+        args: DotnetPulseSettings.runArgs(),
         cwd: projectDir,
         console: DotnetPulseSettings.projectBuildToConsole(),
         stopAtEntry: false,

@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { NET_PULSE } from '../constants';
 import { processProject } from './shared';
 import { executeBuild } from './build';
+import { DotnetPulseSettings } from '../settings';
 
 /**
  * Builds the solution using C# Dev Kit integration
@@ -34,5 +35,10 @@ export async function buildSolution(): Promise<void> {
     }
 
     const uri = vscode.Uri.file(solution);
-    await processProject(uri, 'Building', executeBuild);
+    await processProject(
+        uri,
+        'Building',
+        (filePath, channel, projectInfoMessage) =>
+            executeBuild(filePath, channel, projectInfoMessage, DotnetPulseSettings.buildArgs())
+    );
 }

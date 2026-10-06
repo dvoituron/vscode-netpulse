@@ -39,10 +39,26 @@
           "default": "",
           "description": "Relative path to the .NET project file to build and run (e.g., MySample/MySample.csproj)"
         },
-        "dotnetPulse.projectArgs": {
+        "dotnetPulse.runArgs": {
           "type": "array",
           "default": [],
-          "description": "Command line arguments to pass when running the project",
+          "description": "Command line arguments to pass to the application when running or debugging",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dotnetPulse.buildArgs": {
+          "type": "array",
+          "default": [],
+          "description": "Command line arguments to pass to dotnet build for Build Project and Build Solution",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dotnetPulse.runBuildArgs": {
+          "type": "array",
+          "default": [],
+          "description": "Command line arguments to pass to dotnet build before running or debugging",
           "items": {
             "type": "string"
           }

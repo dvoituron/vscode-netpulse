@@ -47,9 +47,27 @@ export class DotnetPulseSettings {
      * Gets the configured project arguments from settings
      * @returns An array of arguments to pass to the project, or empty array if not configured
      */
-    public static projectArgs(): string[] {
+    public static runArgs(): string[] {
         const config = vscode.workspace.getConfiguration('dotnetPulse');
-        return config.get<string[]>('projectArgs') || [];
+        return config.get<string[]>('runArgs') || [];
+    }
+
+    /**
+     * Gets the arguments for manual project and solution builds
+     * @returns An array of arguments to pass to dotnet build, or empty array if not configured
+     */
+    public static buildArgs(): string[] {
+        const config = vscode.workspace.getConfiguration('dotnetPulse');
+        return config.get<string[]>('buildArgs') || [];
+    }
+
+    /**
+     * Gets the arguments for the build performed before running or debugging the configured project
+     * @returns An array of arguments to pass to dotnet build, or empty array if not configured
+     */
+    public static runBuildArgs(): string[] {
+        const config = vscode.workspace.getConfiguration('dotnetPulse');
+        return config.get<string[]>('runBuildArgs') || [];
     }
 
     /**

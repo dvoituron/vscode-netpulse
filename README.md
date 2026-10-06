@@ -174,7 +174,24 @@ You can configure .NET Pulse behavior by adding settings to your workspace's `.v
 {
     "externalTerminal.path": "wt.exe",
     "dotnetPulse.projectUri": "MySample/MySample.csproj",
-    "dotnetPulse.projectArgs": [],
+    "dotnetPulse.buildArgs": [
+        "--configuration",
+        "Debug",
+        "--no-restore"
+    ],
+    "dotnetPulse.runBuildArgs": [
+        "--configuration",
+        "Debug",
+        "--no-restore",
+        "-m",
+        "-p:RunAnalyzersDuringBuild=false",
+        "-p:EnforceCodeStyleInBuild=false",
+        "-p:CompressionEnabled=false"
+    ],
+    "dotnetPulse.runArgs": [
+        "--urls",
+        "https://localhost:7001"
+    ],
     "dotnetPulse.projectPreLaunchTask": "",
     "dotnetPulse.buildBeforeRun": true,
     "dotnetPulse.projectBuildToConsole": "internalConsole",
@@ -199,7 +216,9 @@ You can configure .NET Pulse behavior by adding settings to your workspace's `.v
 ### Other Configuration Options
 
 - **`externalTerminal.path`**: Path to your preferred external terminal application (default is `wt.exe`)
-- **`dotnetPulse.projectArgs`**: Array of command-line arguments passed to your application when **running** or **debugging**
+- **`dotnetPulse.buildArgs`**: Array of command-line arguments passed to `dotnet build` for **Build Project** (`Ctrl+B`) and **Build Solution** (`Ctrl+Shift+B`)
+- **`dotnetPulse.runBuildArgs`**: Array of command-line arguments passed to `dotnet build` before **Run** (`Ctrl+F5`) or **Debug** (`F5`). These arguments are used only when `dotnetPulse.buildBeforeRun` is enabled.
+- **`dotnetPulse.runArgs`**: Array of command-line arguments passed to the application when **running** (`Ctrl+F5`) or **debugging** (`F5`)
 - **`dotnetPulse.projectPreLaunchTask`**: Task to execute before launching the application
 - **`dotnetPulse.buildBeforeRun`**: Builds the project before **Run** (`Ctrl+F5`) or **Debug** (`F5`). Defaults to `true`. Set it to `false` to launch the previously compiled DLL. This setting does not affect **Build Project** (`Ctrl+B`) or **Build Solution** (`Ctrl+Shift+B`).
 - **`dotnetPulse.projectBuildToConsole`**: Console type for output - `"internalConsole"` (default), `"integratedTerminal"`, or `"externalTerminal"`
@@ -238,7 +257,7 @@ Example — launch a Blazor WebAssembly project with the `blazorwasm` debug adap
 }
 ```
 
-> **Note:** Values set in `dotnetPulse.startConfiguration` take precedence over `dotnetPulse.projectArgs`. For example, if both `projectArgs` and `startConfiguration.args` are set, only `startConfiguration.args` is used (no merging).
+> **Note:** Values set in `dotnetPulse.startConfiguration` take precedence over `dotnetPulse.runArgs`. For example, if both `runArgs` and `startConfiguration.args` are set, only `startConfiguration.args` is used (no merging).
 
 ## Recommended Extensions
 
@@ -290,3 +309,9 @@ This extension is provided as-is for productivity enhancement in .NET developmen
 - Added the Windows-only `.NET Pulse` → `.NET Host` submenu:
   - **List** displays all running `dotnet.exe` processes in the `.NET Host` Output channel.
   - **Kill all** asks for confirmation, then stops the listed `dotnet.exe` processes by PID and reports the result.
+
+### 1.0.13
+- **Breaking change:** Renamed `dotnetPulse.projectArgs` to `dotnetPulse.runArgs`. Existing workspace and user settings must be updated to use the new name.
+- Added `dotnetPulse.buildArgs` for arguments passed to `dotnet build` by **Build Project** (`Ctrl+B`) and **Build Solution** (`Ctrl+Shift+B`).
+- Added `dotnetPulse.runBuildArgs` for arguments passed to `dotnet build` before **Run** (`Ctrl+F5`) or **Debug** (`F5`) when `dotnetPulse.buildBeforeRun` is enabled.
+- Added `dotnetPulse.runArgs` for arguments passed to the application launched by **Run** (`Ctrl+F5`) or **Debug** (`F5`).

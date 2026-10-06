@@ -10,7 +10,12 @@ import { SoundPlayer } from './soundPlayer';
  * @param uri - The URI of the selected file (optional, uses active editor if not provided)
  */
 export async function buildProject(uri?: vscode.Uri): Promise<void> {
-    await processProject(uri, 'Building', executeBuild);
+    await processProject(
+        uri,
+        'Building',
+        (filePath, channel, projectInfoMessage) =>
+            executeBuild(filePath, channel, projectInfoMessage, DotnetPulseSettings.buildArgs())
+    );
 }
 
 /**
@@ -18,9 +23,15 @@ export async function buildProject(uri?: vscode.Uri): Promise<void> {
  * @param filePath - The path to the .csproj file
  * @param channel - The output channel for logging
  * @param projectInfoMessage - Optional message to display before the build (e.g., "Found nearest project")
+ * @param buildArgs - Additional command-line arguments to pass to dotnet build
  * @returns Promise<boolean> - true if build succeeded, false otherwise
  */
-export async function executeBuild(filePath: string, channel: vscode.OutputChannel, projectInfoMessage: string): Promise<boolean> {
+export async function executeBuild(
+    filePath: string,
+    channel: vscode.OutputChannel,
+    projectInfoMessage: string,
+    buildArgs: string[] = []
+): Promise<boolean> {
     // Check if there's an active debug session and stop it
     if (vscode.debug.activeDebugSession) {
         channel.appendLine(`${NET_PULSE}Stopping active debug session...`);
@@ -31,13 +42,19 @@ export async function executeBuild(filePath: string, channel: vscode.OutputChann
 
     const projectDir = path.dirname(filePath);
     const projectFileName = path.basename(filePath);
-    const command = `dotnet build '${projectFileName.replace(/'/g, "''")}'`;
+    const commandArgs = [projectFileName, ...buildArgs]
+        .map(argument => `'${argument.replace(/'/g, "''")}'`)
+        .join(' ');
+    const command = `dotnet build ${commandArgs}`;
 
     channel.appendLine(`${NET_PULSE} $> ${command}`);
 
     // Build the shell command with optional green-colored project info message
     // Use PowerShell Write-Host for green text output on a single line
-    let shellCommand = `pwsh -NoProfile -Command "Write-Host '${projectInfoMessage.replace(/'/g, "''")}' -ForegroundColor Green; ${command}"`;
+    const displayCommand = `> dotnet build ${[projectFileName, ...buildArgs].join(' ')}`.replace(/'/g, "''");
+    const script = `Write-Host '${projectInfoMessage.replace(/'/g, "''")}' -ForegroundColor Green; Write-Host '${displayCommand}' -ForegroundColor Green; ${command}`;
+    const encodedScript = Buffer.from(script, 'utf16le').toString('base64');
+    const shellCommand = `pwsh -NoProfile -EncodedCommand ${encodedScript}`;
 
     // Create a terminal task to run dotnet build
     const task = new vscode.Task(
