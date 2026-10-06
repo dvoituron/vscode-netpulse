@@ -66,8 +66,8 @@ finds the **nearest** project file (`.csproj`) and builds it.
 
 ## ▫️Start without Debugging
 
-Quickly **run your .NET project** without attaching a debugger. The extension automatically finds the 
-**nearest** project file (`.csproj`) and executes it using `dotnet run`.
+Quickly **run your .NET project** without attaching a debugger. The extension automatically finds the
+**nearest** project file (`.csproj`), builds it by default, and launches its output DLL.
 
 - Right-click on any file in the Explorer and select `.NET Pulse` → `Start without Debugging`
 - Use keyboard shortcut: `Ctrl+F5` (Windows) or `Cmd+F5` (Mac)
@@ -167,6 +167,7 @@ You can configure .NET Pulse behavior by adding settings to your workspace's `.v
     "dotnetPulse.projectUri": "MySample/MySample.csproj",
     "dotnetPulse.projectArgs": [],
     "dotnetPulse.projectPreLaunchTask": "",
+    "dotnetPulse.buildBeforeRun": true,
     "dotnetPulse.projectBuildToConsole": "internalConsole",
     "dotnetPulse.startConfiguration": {},
     "dotnetPulse.documentationUrls": [
@@ -184,11 +185,14 @@ You can configure .NET Pulse behavior by adding settings to your workspace's `.v
 
 - **Build command** (`Ctrl+B`) always compiles the project associated with the **currently selected file**, searching for the nearest `.csproj` file in the directory hierarchy.
 
+- **Build Solution command** (`Ctrl+Shift+B`) always compiles the currently opened solution.
+
 ### Other Configuration Options
 
 - **`externalTerminal.path`**: Path to your preferred external terminal application (default is `wt.exe`)
 - **`dotnetPulse.projectArgs`**: Array of command-line arguments passed to your application when **running** or **debugging**
 - **`dotnetPulse.projectPreLaunchTask`**: Task to execute before launching the application
+- **`dotnetPulse.buildBeforeRun`**: Builds the project before **Run** (`Ctrl+F5`) or **Debug** (`F5`). Defaults to `true`. Set it to `false` to launch the previously compiled DLL. This setting does not affect **Build Project** (`Ctrl+B`) or **Build Solution** (`Ctrl+Shift+B`).
 - **`dotnetPulse.projectBuildToConsole`**: Console type for output - `"internalConsole"` (default), `"integratedTerminal"`, or `"externalTerminal"`
 - **`dotnetPulse.startConfiguration`**: Object that overrides individual fields of the launch configuration used by **Run** (`Ctrl+F5`) and **Debug** (`F5`). Only the keys `type`, `request`, `program`, `args`, `cwd`, `stopAtEntry`, `requireExactSource`, and `noDebug` are honored. Any value set here **fully replaces** the corresponding default (arrays are not merged); unspecified keys keep their built-in values. See the [Customizing Run/Debug Launch Configuration](#%EF%B8%8Fcustomizing-rundebug-launch-configuration) section below.
 - **`dotnetPulse.documentationUrls`**: Array of documentation links with `label` and `url` properties to display in the Open Documentation command
@@ -271,4 +275,3 @@ This extension is provided as-is for productivity enhancement in .NET developmen
 
 ### 1.0.11
 - Changed bundled extension dependencies to optional recommendations via `extensionPack`.
-

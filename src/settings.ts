@@ -62,6 +62,15 @@ export class DotnetPulseSettings {
     }
 
     /**
+     * Gets whether the project should be built before running or debugging
+     * @returns true by default to preserve the existing launch behavior
+     */
+    public static buildBeforeRun(): boolean {
+        const config = vscode.workspace.getConfiguration('dotnetPulse');
+        return config.get<boolean>('buildBeforeRun', true);
+    }
+
+    /**
      * Gets the configured build to console setting from settings (internalConsole, integratedTerminal, externalTerminal)
      * @returns The build to console configuration, or empty string if not configured
      */

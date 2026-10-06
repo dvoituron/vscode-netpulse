@@ -52,6 +52,11 @@
           "default": "",
           "description": "Name of a VS Code task to run before launching the project"
         },
+        "dotnetPulse.buildBeforeRun": {
+          "type": "boolean",
+          "default": true,
+          "description": "Build the project before starting it with Run or Debug. This does not affect the Build Project or Build Solution commands."
+        },
         "dotnetPulse.projectBuildToConsole": {
           "type": "string",
           "default": "internalConsole",

@@ -25,12 +25,15 @@ async function executeDebug(filePath: string, channel: vscode.OutputChannel, pro
 
     channel.appendLine(`${NET_PULSE}${projectInfoMessage}`);
 
-    // Build the project first to ensure latest version
-    const buildSuccess = await executeBuild(filePath, channel, projectInfoMessage);
+    if (DotnetPulseSettings.buildBeforeRun()) {
+        const buildSuccess = await executeBuild(filePath, channel, projectInfoMessage);
 
-    if (!buildSuccess) {
-        channel.appendLine(`${NET_PULSE}Debug cancelled due to build failure.`);
-        return;
+        if (!buildSuccess) {
+            channel.appendLine(`${NET_PULSE}Debug cancelled due to build failure.`);
+            return;
+        }
+    } else {
+        channel.appendLine(`${NET_PULSE}Skipping build because dotnetPulse.buildBeforeRun is disabled.`);
     }
 
     channel.appendLine(`${NET_PULSE}Starting debug session...`);
