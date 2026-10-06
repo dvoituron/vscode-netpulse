@@ -284,3 +284,9 @@ This extension is provided as-is for productivity enhancement in .NET developmen
 
 ### 1.0.11
 - Changed bundled extension dependencies to optional recommendations via `extensionPack`.
+
+### 1.0.12
+- Added `dotnetPulse.buildBeforeRun`. It defaults to `true`; set it to `false` to launch the previously compiled DLL with `Ctrl+F5` or `F5` without rebuilding. Manual project and solution builds remain available through `Ctrl+B` and `Ctrl+Shift+B`.
+- Added the Windows-only `.NET Pulse` → `.NET Host` submenu:
+  - **List** displays all running `dotnet.exe` processes in the `.NET Host` Output channel.
+  - **Kill all** asks for confirmation, then stops the listed `dotnet.exe` processes by PID and reports the result.
