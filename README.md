@@ -28,9 +28,7 @@ It is no longer necessary to install other extensions or create a _tasks.json_ f
 | Close the current window | `Ctrl+W` | `cmd+W` |
 | Opens current file's directory in external terminal | `Ctrl+Alt+Space` | `Ctrl+Alt+Space` |
 
-**NOTES:** 
-- To use **Start New Instance** (`F5` or `Ctrl+F5` 
-effectively, we recommend specifying the _project_ to run in `.vscode/settings.json`. Without this file, the current project associated to the open file will be run.
+**Note:** For consistent **Run** (`Ctrl+F5`) and **Debug** (`F5`) behavior, we recommend specifying the project to launch in `.vscode/settings.json`. Without this setting, the extension uses the project associated with the selected or currently open file.
 
    ```json
    {
@@ -213,19 +211,26 @@ You can configure .NET Pulse behavior by adding settings to your workspace's `.v
 
 - **Build Solution command** (`Ctrl+Shift+B`) always compiles the currently opened solution.
 
+### Build and Run Arguments
+
+| Setting | Commands | Purpose |
+|---------|----------|---------|
+| `dotnetPulse.buildArgs` | `Ctrl+B`, `Ctrl+Shift+B` | Arguments passed to `dotnet build` for manual project and solution builds |
+| `dotnetPulse.runBuildArgs` | `Ctrl+F5`, `F5` | Arguments passed to `dotnet build` before launching the configured project; used only when `dotnetPulse.buildBeforeRun` is enabled |
+| `dotnetPulse.runArgs` | `Ctrl+F5`, `F5` | Arguments passed to the application after it has been built |
+
 ### Other Configuration Options
 
-- **`externalTerminal.path`**: Path to your preferred external terminal application (default is `wt.exe`)
-- **`dotnetPulse.buildArgs`**: Array of command-line arguments passed to `dotnet build` for **Build Project** (`Ctrl+B`) and **Build Solution** (`Ctrl+Shift+B`)
-- **`dotnetPulse.runBuildArgs`**: Array of command-line arguments passed to `dotnet build` before **Run** (`Ctrl+F5`) or **Debug** (`F5`). These arguments are used only when `dotnetPulse.buildBeforeRun` is enabled.
-- **`dotnetPulse.runArgs`**: Array of command-line arguments passed to the application when **running** (`Ctrl+F5`) or **debugging** (`F5`)
-- **`dotnetPulse.projectPreLaunchTask`**: Task to execute before launching the application
-- **`dotnetPulse.buildBeforeRun`**: Builds the project before **Run** (`Ctrl+F5`) or **Debug** (`F5`). Defaults to `true`. Set it to `false` to launch the previously compiled DLL. This setting does not affect **Build Project** (`Ctrl+B`) or **Build Solution** (`Ctrl+Shift+B`).
-- **`dotnetPulse.projectBuildToConsole`**: Console type for output - `"internalConsole"` (default), `"integratedTerminal"`, or `"externalTerminal"`
-- **`dotnetPulse.startConfiguration`**: Object that overrides individual fields of the launch configuration used by **Run** (`Ctrl+F5`) and **Debug** (`F5`). Only the keys `type`, `request`, `program`, `args`, `cwd`, `stopAtEntry`, `requireExactSource`, and `noDebug` are honored. Any value set here **fully replaces** the corresponding default (arrays are not merged); unspecified keys keep their built-in values. See the [Customizing Run/Debug Launch Configuration](#%EF%B8%8Fcustomizing-rundebug-launch-configuration) section below.
-- **`dotnetPulse.documentationUrls`**: Array of documentation links with `label` and `url` properties to display in the Open Documentation command
-- **`dotnetPulse.buildSuccessSound`**: Path to a `.wav` audio file played when a **build succeeds**. Leave empty to disable the success sound. Example: `C:/Windows/Media/Windows Exclamation.wav`
-- **`dotnetPulse.buildFailureSound`**: Path to a `.wav` audio file played when a **build fails**. Leave empty to disable the failure sound. Example: `C:/Windows/Media/Windows Critical Stop.wav`
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `externalTerminal.path` | `"wt.exe"` | Path to the preferred external terminal application |
+| `dotnetPulse.projectPreLaunchTask` | `""` | VS Code task to execute before launching the application |
+| `dotnetPulse.buildBeforeRun` | `true` | Builds the project before **Run** (`Ctrl+F5`) or **Debug** (`F5`). Set it to `false` to launch the previously compiled DLL. This does not affect manual project or solution builds. |
+| `dotnetPulse.projectBuildToConsole` | `"internalConsole"` | Console used for project output: `"internalConsole"`, `"integratedTerminal"`, or `"externalTerminal"` |
+| `dotnetPulse.startConfiguration` | `{}` | Overrides supported Run/Debug launch fields. See [Customizing Run/Debug Launch Configuration](#%EF%B8%8Fcustomizing-rundebug-launch-configuration). |
+| `dotnetPulse.documentationUrls` | `[]` | Documentation links containing `label` and `url` properties |
+| `dotnetPulse.buildSuccessSound` | `""` | `.wav` file played after a successful build. Example: `C:/Windows/Media/Windows Exclamation.wav` |
+| `dotnetPulse.buildFailureSound` | `""` | `.wav` file played after a failed build. Example: `C:/Windows/Media/Windows Critical Stop.wav` |
 
 > **Note:** On **Windows**, only `.wav` files are supported (playback uses `System.Media.SoundPlayer`). MP3 and other formats will not play.
 
