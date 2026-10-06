@@ -243,12 +243,26 @@
         "command": "netpulse.openDocumentation",
         "title": "Open Documentation",
         "category": ".NET Pulse"
+      },
+      {
+        "command": "netpulse.dotnetHost.list",
+        "title": "List",
+        "category": ".NET Pulse: .NET Host"
+      },
+      {
+        "command": "netpulse.dotnetHost.killAll",
+        "title": "Kill all",
+        "category": ".NET Pulse: .NET Host"
       }
     ],
     "submenus": [
       {
         "id": "netpulse.submenu",
         "label": ".NET Pulse"
+      },
+      {
+        "id": "netpulse.dotnetHostSubmenu",
+        "label": ".NET Host"
       }
     ],
     "menus": {
@@ -276,28 +290,43 @@
           "group": "1_build"
         },
         {
+          "submenu": "netpulse.dotnetHostSubmenu",
+          "group": "2_host",
+          "when": "isWindows"
+        },
+        {
           "command": "externalTerminal.openInTerminal",
-          "group": "2_terminal",
+          "group": "3_terminal",
           "when": "!explorerResourceIsFolder"
         },
         {
           "command": "netpulse.gitCompareWithUnmodified",
-          "group": "3_git",
+          "group": "4_git",
           "when": "!explorerResourceIsFolder"
         },
         {
           "command": "netpulse.gitViewHistory",
-          "group": "3_git",
+          "group": "4_git",
           "when": "!explorerResourceIsFolder"
         },
         {
           "command": "netpulse.gitConfigUser",
-          "group": "3_git"
+          "group": "4_git"
         },
         {
           "command": "netpulse.openDocumentation",
-          "group": "4_documentation",
+          "group": "5_documentation",
           "when": "netpulse.hasDocumentationUrls"
+        }
+      ],
+      "netpulse.dotnetHostSubmenu": [
+        {
+          "command": "netpulse.dotnetHost.list",
+          "group": "1_processes"
+        },
+        {
+          "command": "netpulse.dotnetHost.killAll",
+          "group": "2_processes"
         }
       ]
     },

@@ -91,6 +91,15 @@ Build the entire **.NET solution** instead of a single project. The solution fil
 - Use keyboard shortcut: `Ctrl+Shift+B` (Windows) or `Cmd+Shift+B` (Mac)
 - If no solution is currently defined, a prompt will be displayed to select one
 
+## ▫️.NET Host
+
+Manage running `dotnet.exe` processes on Windows from the Explorer context menu:
+
+- `.NET Pulse` → `.NET Host` → `List` displays each process PID, CPU time, memory usage, and executable path in the `.NET Host` Output channel.
+- `.NET Pulse` → `.NET Host` → `Kill all` displays the current process list and asks for confirmation before stopping each listed `dotnet.exe` process.
+
+The commands may include .NET applications, builds, language services, and other development tools running under `dotnet.exe`.
+
 ## ▫️Navigate to Code-Behind File
 
 Seamlessly navigate from markup files to their **associated code-behind files** with a single keystroke.

@@ -7,6 +7,7 @@ import { registerBuildProject, disposeBuildProject } from './buildProject/index'
 import { registerNavigateToCodeBehind } from './navigateToCodeBehind/index';
 import { registerGitCompareWithUnmodified, registerGitViewHistory, registerGitConfigUser } from './gitCommand/index';
 import { registerOpenDocumentation } from './documentation/index';
+import { registerDotnetHost } from './dotnetHost/index';
 
 /**
  * This function is called when your extension is activated
@@ -23,6 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
     registerGitViewHistory(context);
     registerGitConfigUser(context);
     registerOpenDocumentation(context);
+    registerDotnetHost(context);
 }
 
 /**
